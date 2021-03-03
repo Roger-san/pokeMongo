@@ -1,0 +1,23 @@
+{
+  "name": "pokeapi",
+  "version": "1.0.0",
+  "description": "API de pokemon",
+  "main": "api.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Roger-san/pokeApi.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Roger-san/pokeApi/issues"
+  },
+  "homepage": "https://github.com/Roger-san/pokeApi#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.11.18"
+  }
+}
