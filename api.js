@@ -9,7 +9,7 @@ const api = express()
 
 //api config
 api.use(bodyParser.json())
-api.use(bodyParser.urlencoded({extended: true}))
+api.use(bodyParser.urlencoded({ extended: true }))
 api.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*") // authorized headers for preflight requests
   // https://developer.mozilla.org/en-US/docs/Glossary/preflight_request
@@ -25,7 +25,7 @@ api.use((req, res, next) => {
   })
 })
 //mongoose config
-const opts = {useNewUrlParser: true, useUnifiedTopology: true}
+const opts = { useNewUrlParser: true, useUnifiedTopology: true }
 mongoose.connect(URL, opts, (err, res) => {
   if (err) console.error(err, opts, "fallo en la base de datos")
   else console.log("base de datos conectada")
@@ -48,7 +48,7 @@ api.get("/api/pokemons/:id", (req, res) => {
 api.get("/api/pokemons/:id/locations/:locationId", (req, res) => {
   Pokemon.findById(req.params.id, (err, poke) => {
     if (err) console.error(err)
-    else poke.findOne({"locations.id": req.params.locationId})
+    else poke.findOne({ "locations.id": req.params.locationId })
   })
 })
 
@@ -64,13 +64,13 @@ api.get("/api/pageoffset/pokemons/", (request, response) => {
       success: true,
       url: "/api/pokemons/pageoffset/",
       method: "get",
-      message: list,
+      message: list
     })
   })
 })
 
 api.delete("/api/pokemons", (req, res) => {
-  Pokemon.exists({_id: req.body.id}).then((boolean) => {
+  Pokemon.exists({ _id: req.body.id }).then((boolean) => {
     if (!boolean) res.send("pokemon no existe")
     else
       Pokemon.findByIdAndDelete(req.body.id, (err, data) => {
@@ -87,13 +87,13 @@ api.post("/api/pokemons", (req, res) => {
     const newPokemon = new Pokemon({
       name: req.body.name,
       type: req.body.type,
-      locations: req.body.locations,
+      locations: req.body.locations
     })
   }
 })
 
 api.put("/api/pokemons/:id", (req, res) => {
-  Pokemon.exists({_id: req.params.id}).then((boolean) => {
+  Pokemon.exists({ _id: req.params.id }).then((boolean) => {
     if (!boolean) res.send("pokemon no existe")
     else if (!req.body.name || !req.body.type || !req.body.locations) {
       res.send("more data is needed")
@@ -101,12 +101,12 @@ api.put("/api/pokemons/:id", (req, res) => {
       const newPokemon = {
         name: req.body.name,
         type: req.body.type,
-        locations: req.body.locations,
+        locations: req.body.locations
       }
       const opts = {
         new: true,
         runValidators: false,
-        useFindAndModify: false,
+        useFindAndModify: false
       }
       Pokemon.findByIdAndUpdate(req.params.id, newPokemon, opts, (err, data) => {
         if (err) res.send(err)
@@ -143,5 +143,5 @@ api.put("/api/pokemons/:id", (req, res) => {
 //     }
 //   })
 // })
-
-api.listen(1013, () => console.log("server corriendo en localhost:1013"))
+const PORT = process.env.PORT || 1010
+api.listen(PORT, () => console.log("server corriendo en localhost:1013"))
