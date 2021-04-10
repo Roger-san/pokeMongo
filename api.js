@@ -84,17 +84,11 @@ api.post("/api/pokemons", (req, res) => {
   if (!req.body.name || !req.body.type || !req.body.locations) {
     res.send("more data is needed")
   } else {
-    Pokemon.create(
-      {
-        name: req.body.name,
-        type: req.body.type,
-        locations: req.body.locations,
-      },
-      (err, data) => {
-        if (err) res.send(err)
-        else res.send(data)
-      }
-    )
+    const newPokemon = new Pokemon({
+      name: req.body.name,
+      type: req.body.type,
+      locations: req.body.locations,
+    })
   }
 })
 
